@@ -4,7 +4,7 @@ class DateTimeView {
 
 
 	public function show() {
-		$now = new DateTime('now', new DateTimeZone('Europe/Sweden'));
+		$now = new DateTime('now', new DateTimeZone('Europe/Berlin'));
 
 		$day = $now->format('l');
 		$dayDate = $now->format('jS');
@@ -12,7 +12,7 @@ class DateTimeView {
 		$year = $now->format('Y');
 		$hourMinSec = $now->format('H:i:s');
 
-		$timeString = $day . ', the ' . $dayDate . ' of ' . $month . $year . ', The time is ' . $hourMinSec;
+		$timeString = $day . ', thfbe ' . $dayDate . ' of ' . $month . $year . ', The time is ' . $hourMinSec;
 
 		return '<p>' . $timeString . '</p>';
 	}
