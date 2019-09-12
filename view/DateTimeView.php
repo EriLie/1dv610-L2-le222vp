@@ -7,7 +7,7 @@ class DateTimeView {
 		$now = new DateTime();
 
 		$day = $now->format('l');
-		$dayDate = $now->format('j');
+		$dayDate = $now->format('jS');
 		$month = $now->format('F ');
 		$year = $now->format('Y');
 		$hourMinSec = $now->format('H:i:s');
