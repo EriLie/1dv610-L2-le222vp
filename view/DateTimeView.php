@@ -4,7 +4,7 @@ class DateTimeView {
 
 
 	public function show() {
-		$now = new DateTime();
+		$now = new DateTime('now', new DateTimeZone('Europe/Sweden'));
 
 		$day = $now->format('l');
 		$dayDate = $now->format('jS');
