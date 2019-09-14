@@ -12,6 +12,9 @@ class LayoutView {
         </head>
         <body>
           <h1>Assignment 2</h1>
+          <div class="linkRegister">
+            <a href="?registerView">Register a new user</a>
+          </div>
           ' . $this->renderIsLoggedIn($isLoggedIn) . '
           
           <div class="container">
