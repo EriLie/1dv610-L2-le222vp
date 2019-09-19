@@ -32,8 +32,9 @@ class LoginView {
             if(empty($_POST[self::$name])) {
                 $message .= 'Username is missing';
             } else if (empty($_POST[self::$password])) {
-
                 $message .= 'Password is missing';
+			} else if ($_POST[self::$name] == 'Admin' || $_POST[self::$password] == 'Password') {
+				$message .= 'Wrong name or password';
 			}
 			
 			$this->inputPostName = $_POST[self::$name];

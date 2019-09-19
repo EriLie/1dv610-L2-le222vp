@@ -24,14 +24,15 @@ $regV = new RegisterView();
 
 //$_SESSION['username'];
 
+
 //Connect with database
-$config = include('settings.php');
+/*$config = include('settings.php');
 $connect = mysqli_connect($config->host, $config->username, $config->password, $config->database);
 
 if($connect) {
     echo 'connection, wiho!!!';
 }
-
+*/
 
 
 //$regV->print();
