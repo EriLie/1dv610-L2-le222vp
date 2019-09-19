@@ -5,10 +5,14 @@ require_once('view/LoginView.php');
 require_once('view/DateTimeView.php');
 require_once('view/LayoutView.php');
 require_once('view/RegisterView.php');
+require_once('settings.php');
+
 
 //MAKE SURE ERRORS ARE SHOWN... MIGHT WANT TO TURN THIS OFF ON A PUBLIC SERVER
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
+
+
 
 session_start();
 
@@ -19,6 +23,15 @@ $lv = new LayoutView();
 $regV = new RegisterView();
 
 //$_SESSION['username'];
+
+//Connect with database
+$config = include('settings.php');
+$connect = mysqli_connect($config->host, $config->username, $config->password, $config->database);
+
+if($connect) {
+    echo 'connection, wiho!!!';
+}
+
 
 
 //$regV->print();
