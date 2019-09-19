@@ -10,7 +10,9 @@ class LoginView {
 	private static $keep = 'LoginView::KeepMeLoggedIn';
 	private static $messageId = 'LoginView::Message';
 
+	//private $message = '';
 	
+	private $inputPostName = '';
 
 	/**
 	 * Create HTTP response
@@ -19,13 +21,29 @@ class LoginView {
 	 *
 	 * @return  void BUT writes to standard output and cookies!
 	 */
-	public function response() {
+	public function response($isLoggedIn) {
 		$message = '';
+
 		
-		$response = $this->generateLoginFormHTML($message);
-		//$response .= $this->generateLogoutButtonHTML($message);
+	
+		if(isset($_POST[self::$login])) {
+			
+
+            if(empty($_POST[self::$name])) {
+                $message .= 'Username is missing';
+            } else if (empty($_POST[self::$password])) {
+
+                $message .= 'Password is missing';
+			}
+			
+			//$this->inputPostName = $_POST[self::$name];
+        }
+
+        $response = $this->generateLoginFormHTML($message);
 		return $response;
 	}
+
+
 
 	/**
 	* Generate HTML code on the output buffer for the logout button
@@ -54,7 +72,7 @@ class LoginView {
 					<p id="' . self::$messageId . '">' . $message . '</p>
 					
 					<label for="' . self::$name . '">Username :</label>
-					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="" />
+					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="'. $this->inputPostName .'" />
 
 					<label for="' . self::$password . '">Password :</label>
 					<input type="password" id="' . self::$password . '" name="' . self::$password . '" />
@@ -70,6 +88,7 @@ class LoginView {
 	
 	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
 	private function getRequestUserName() {
+		$username = $_POST['name'];
 		//RETURN REQUEST VARIABLE: USERNAME
 	}
 	
