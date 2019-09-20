@@ -22,20 +22,27 @@ $dtv = new DateTimeView();
 $lv = new LayoutView();
 $regV = new RegisterView();
 
-//$_SESSION['username'];
-
 
 //Connect with database
 /*$config = include('settings.php');
 $connect = mysqli_connect($config->host, $config->username, $config->password, $config->database);
-
-if($connect) {
-    echo 'connection, wiho!!!';
-}
 */
+if (isset($_SESSION['userLoggedIn'])) {
+    
+    $lv->render(true, $v, $dtv, $regV);
+
+} else {
+    $lv->render(false, $v, $dtv, $regV);
+}
+
+//$_SESSION['userLoggedIn'];
+
+
+
+
 
 
 //$regV->print();
 
-$lv->render(false, $v, $dtv, $regV);
+//$lv->render(false, $v, $dtv, $regV);
 

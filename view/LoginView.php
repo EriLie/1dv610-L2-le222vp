@@ -1,7 +1,7 @@
 <?php
 
 class LoginView {
-	private static $login = 'LoginView::Login';
+	private static $submitLogin = 'LoginView::Login';
 	private static $logout = 'LoginView::Logout';
 	private static $name = 'LoginView::UserName';
 	private static $password = 'LoginView::Password';
@@ -23,24 +23,46 @@ class LoginView {
 	 */
 	public function response($isLoggedIn) {
 		$message = '';
-
+		$response = '';
 		
 	
-		if(isset($_POST[self::$login])) {
-			
+		if(isset($_POST[self::$submitLogin])) {			
+			$this->inputPostName = $_POST[self::$name];
 
             if(empty($_POST[self::$name])) {
-                $message .= 'Username is missing';
+				$message .= 'Username is missing';
+				$response = $this->generateLoginFormHTML($message);
             } else if (empty($_POST[self::$password])) {
-                $message .= 'Password is missing';
+				$message .= 'Password is missing';
+				$response = $this->generateLoginFormHTML($message);
+			} else if ($_POST[self::$name] == 'Admin' && $_POST[self::$password] == 'Password') {
+				$_SESSION['userLoggedIn'] = $_POST[self::$name];
+				//$message = 'Welcome';
+				// Måste fixa så index renderas om!!
+
+				$response = $this->generateLogoutButtonHTML($message);
 			} else if ($_POST[self::$name] == 'Admin' || $_POST[self::$password] == 'Password') {
 				$message .= 'Wrong name or password';
+				$response = $this->generateLoginFormHTML($message);
 			}
 			
-			$this->inputPostName = $_POST[self::$name];
-        }
+			
+        } else {
+			//$this->inputPostName = $_POST[self::$name];
+			$response = $this->generateLoginFormHTML($message);
+		}
+		
+		if(isset($_SESSION['userLoggedIn'])) {
+			
+			//$response = $this->generateLogoutButtonHTML('Welcome');
+		}
 
-        $response = $this->generateLoginFormHTML($message);
+		if(isset($_POST[self::$logout])) {
+			session_destroy();
+			//unset($_SESSION['userLoggedIn']);
+		}
+
+        
 		return $response;
 	}
 
@@ -81,7 +103,7 @@ class LoginView {
 					<label for="' . self::$keep . '">Keep me logged in  :</label>
 					<input type="checkbox" id="' . self::$keep . '" name="' . self::$keep . '" />
 					
-					<input type="submit" name="' . self::$login . '" value="login" />
+					<input type="submit" name="' . self::$submitLogin . '" value="login" />
 				</fieldset>
 			</form>
 		';
