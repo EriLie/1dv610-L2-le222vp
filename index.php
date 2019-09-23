@@ -13,7 +13,6 @@ error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
 
-
 session_start();
 
 //CREATE OBJECTS OF THE VIEWS
@@ -22,18 +21,33 @@ $dtv = new DateTimeView();
 $lv = new LayoutView();
 $regV = new RegisterView();
 
+$isLoggedIn = $v->controllLoggedIn();
+
+$lv->render($isLoggedIn, $v, $dtv, $regV);
 
 //Connect with database
 /*$config = include('settings.php');
 $connect = mysqli_connect($config->host, $config->username, $config->password, $config->database);
 */
+
+/*
 if (isset($_SESSION['userLoggedIn'])) {
     
     $lv->render(true, $v, $dtv, $regV);
 
-} else {
+} else if (!isset($_SESSION['userLoggedIn'])) {
     $lv->render(false, $v, $dtv, $regV);
 }
+
+if(isset($_GET['registerView'])){
+    $_SESSION['newRegister'] = $_GET['registerView'];
+    // rendera register!!!!
+    $lv->render(false, $v, $dtv, $regV);
+}
+
+
+*/
+
 
 //$_SESSION['userLoggedIn'];
 

@@ -13,18 +13,43 @@ class LayoutView {
         <body>
           <h1>Assignment 2</h1>
           <div class="linkRegister">
-            <a href="?registerView">Register a new user</a>
+            ' . $this->newUserRegistration() . '
           </div>
-          ' . $this->renderIsLoggedIn($isLoggedIn) . '
+            ' . $this->renderIsLoggedIn($isLoggedIn) . '
           
           <div class="container">
               ' . $v->response($isLoggedIn) . '
-              
+              ' . $this->checkIfRegister($regV) . '
+
               ' . $dtv->show() . '
           </div>
-         </body>
+          
+        </body>
       </html>
     ';
+  }
+
+
+  /*
+  '. var_dump($_SESSION) .'
+          <br>
+          '. var_dump($_POST) .'
+          <br>
+          '. var_dump($_GET) .'
+  
+  */
+
+  private function newUserRegistration(){
+    if(isset($_SESSION['newRegister'])) {
+      return '<a href="?">Back to login</a>'; 
+    } else {
+      return '<a href="?register">Register a new user</a>';
+    }
+     
+  }
+
+  private function checkIfRegister($regV) {
+    $regV->render();
   }
   
   private function renderIsLoggedIn($isLoggedIn) {
