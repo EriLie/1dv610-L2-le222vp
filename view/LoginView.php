@@ -24,11 +24,7 @@ class LoginView {
 	public function response($isLoggedIn) {
 		$response;
 
-		if(isset($_POST[self::$logout])) {
-			//session_destroy();
-			$this->message = 'Bye bye!';
-			unset($_SESSION['userLoggedIn']);
-		}
+		
 
 		if ($isLoggedIn) {
 			$response = $this->generateLogoutButtonHTML($this->message);			
@@ -86,26 +82,39 @@ class LoginView {
 		$isLoggedIn = false;
 		$this->message = '';
 
-		if(isset($_POST[self::$submitLogin])) {			
-			$this->inputPostName = $_POST[self::$name];
+		if(isset($_POST[self::$logout]) && isset($_SESSION['userLoggedIn'])) {
+			unset($_SESSION['userLoggedIn']);
+			session_destroy();
+			$this->message = 'Bye bye!';			
+		}
 
-            if(empty($_POST[self::$name])) {
+		if(isset($_SESSION['userLoggedIn'])) {
+			$isLoggedIn = true;
+			$this->message = '';
+		}
+			
+
+		if(isset($_POST[self::$submitLogin])) {
+			$user = $_POST[self::$name];
+			$password = $_POST[self::$password];
+
+			$this->inputPostName = $user;
+
+            if(empty($user)) {
 				$this->message = 'Username is missing';
 				//$response = $this->generateLoginFormHTML($message);
-            } else if (empty($_POST[self::$password])) {
+            } else if (empty($password)) {
 				$this->message = 'Password is missing';
 				//$response = $this->generateLoginFormHTML($message);
 
-			} else if ($_POST[self::$name] == 'Admin' && $_POST[self::$password] == 'Password') {
+			} else if ($user == 'Admin' && $password == 'Password') {
 				$isLoggedIn = true;
-				$_SESSION['userLoggedIn'] = $_POST[self::$name];
+				
+				$_SESSION['userLoggedIn'] = $user;
 
 				$this->message = 'Welcome';
-				// Måste fixa så index renderas om!!
-				
-				//$response = $this->generateLogoutButtonHTML($message);
 			
-			} else if ($_POST[self::$name] == 'Admin' || $_POST[self::$password] == 'Password') {
+			} else if ($user == 'Admin' || $password == 'Password') {
 				$this->message = 'Wrong name or password';
 				//$response = $this->generateLoginFormHTML($message);	
 			} 

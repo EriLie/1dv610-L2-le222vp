@@ -22,8 +22,9 @@ $lv = new LayoutView();
 $regV = new RegisterView();
 
 $isLoggedIn = $v->controllLoggedIn();
+$newUserRegister = false;
 
-$lv->render($isLoggedIn, $v, $dtv, $regV);
+$lv->render($isLoggedIn, $v, $dtv, $regV, $newUserRegister);
 
 //Connect with database
 /*$config = include('settings.php');
@@ -46,7 +47,13 @@ if(isset($_GET['registerView'])){
 }
 
 
+
 */
+
+
+
+
+
 
 
 //$_SESSION['userLoggedIn'];
