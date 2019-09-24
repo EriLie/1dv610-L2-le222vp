@@ -62,7 +62,7 @@ class LayoutView {
       $response = $v->response($isLoggedIn);
     } else {
       $message = '';
-      $response = $regV->render($message);
+      $response = $regV->response($message);
     }
     
     return $response;

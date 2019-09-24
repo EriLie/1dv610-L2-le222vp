@@ -32,6 +32,7 @@ if(isset($_GET['register'])){
     $newUserRegister = true;
 }
 
+
 $isLoggedIn = $v->controllLoggedIn();
 
 $lv->render($isLoggedIn, $v, $dtv, $regV, $newUserRegister);

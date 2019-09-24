@@ -7,9 +7,9 @@ class RegisterView {
 	private static $copyPassword = 'RegisterView::PasswordRepeat';
 	private static $addRegistration = 'RegisterView::Register';
 
+    private $message = '';
 
-    public function render($message) {
-        //$message = $messageIncoming;
+    public function response($message) {
         return '
             <h2>Register new user</h2>
             <form action="?register" method="post">
