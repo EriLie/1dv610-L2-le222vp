@@ -8,14 +8,14 @@ class RegisterView {
 	private static $addRegistration = 'RegisterView::Register';
 
 
-    public function render() {
-        $mess = 'Tjo';
+    public function render($message) {
+        //$message = $messageIncoming;
         return '
             <h2>Register new user</h2>
             <form action="?register" method="post">
                 <fieldset>
                     <legend>Register a new user - Write username and password</legend>
-                    <p id="' . self::$newMessage . '">' . $mess . '</p>                
+                    <p id="' . self::$newMessage . '">' . $message . '</p>                
                     
                     <label for="' . self::$username . '" >Username :</label>
                     <input type="text" size="20" name="'. self::$username .'" id="'. self::$username .'" value="" />

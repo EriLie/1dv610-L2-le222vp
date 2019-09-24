@@ -21,8 +21,21 @@ $dtv = new DateTimeView();
 $lv = new LayoutView();
 $regV = new RegisterView();
 
-$isLoggedIn = $v->controllLoggedIn();
 $newUserRegister = false;
+
+if(isset($_GET['register'])){
+    $_SESSION['newRegister'] = $_GET['register'];
+    // rendera register!!!!
+    //$regV->render();
+    //Blir fel vid Tjo får se vad det kan va
+    //behöver gå via layoyt för att det ska hamna i bodyn så dra in det i under typ
+    $newUserRegister = true;
+}
+
+$isLoggedIn = $v->controllLoggedIn();
+
+
+
 
 $lv->render($isLoggedIn, $v, $dtv, $regV, $newUserRegister);
 
@@ -40,11 +53,7 @@ if (isset($_SESSION['userLoggedIn'])) {
     $lv->render(false, $v, $dtv, $regV);
 }
 
-if(isset($_GET['registerView'])){
-    $_SESSION['newRegister'] = $_GET['registerView'];
-    // rendera register!!!!
-    $lv->render(false, $v, $dtv, $regV);
-}
+
 
 
 

@@ -3,7 +3,7 @@
 
 class LayoutView {
   
-  public function render($isLoggedIn, LoginView $v, DateTimeView $dtv, RegisterView $regV) {
+  public function render($isLoggedIn, LoginView $v, DateTimeView $dtv, RegisterView $regV, $newUserRegister) {
     echo '<!DOCTYPE html>
       <html>
         <head>
@@ -13,13 +13,12 @@ class LayoutView {
         <body>
           <h1>Assignment 2</h1>
           <div class="linkRegister">
-            ' . $this->newUserRegistration() . '
+            ' . $this->newUserRegistration($isLoggedIn, $newUserRegister) . '
           </div>
             ' . $this->renderIsLoggedIn($isLoggedIn) . '
           
           <div class="container">
-              ' . $v->response($isLoggedIn) . '
-              ' . $this->checkIfRegister($regV) . '
+              ' . $this->rightResponse($isLoggedIn, $newUserRegister, $v, $regV) . '
 
               ' . $dtv->show() . '
           </div>
@@ -39,17 +38,38 @@ class LayoutView {
   
   */
 
-  private function newUserRegistration(){
-    if(isset($_SESSION['newRegister'])) {
-      return '<a href="?">Back to login</a>'; 
-    } else {
-      return '<a href="?register">Register a new user</a>';
+  private function newUserRegistration($isLoggedIn, $newUserRegister){
+    $link = '';
+    
+    if ($newUserRegister && isset($_SESSION['newRegister'])) {
+      $link = '<a href="?">Back to login</a>';
+    }
+    if($isLoggedIn) {
+       $link = '';
+    } 
+    if(!$isLoggedIn && !$newUserRegister) {
+      $link = '<a href="?register">Register a new user</a>';
     }
      
+    
+    return $link;
+  }
+
+  private function rightResponse($isLoggedIn, $newUserRegister, $v, $regV) {
+    $response = '';
+
+    if (!$newUserRegister) {
+      $response = $v->response($isLoggedIn);
+    } else {
+      $message = '';
+      $response = $regV->render($message);
+    }
+    
+    return $response;
   }
 
   private function checkIfRegister($regV) {
-    $regV->render();
+    //$regV->render();
   }
   
   private function renderIsLoggedIn($isLoggedIn) {
