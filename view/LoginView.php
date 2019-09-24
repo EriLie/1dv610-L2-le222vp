@@ -44,9 +44,10 @@ class LoginView {
 	public function controllLoggedIn() {
 		$isLoggedIn = false;
 		//$this->message = '';
+		
 
-		if(isset($_POST[self::$logout]) ) {
-			//&& isset($_SESSION['userLoggedIn'])
+		if(isset($_POST[self::$logout]) && isset($_SESSION['userLoggedIn'])) {
+			//
 			unset($_SESSION['userLoggedIn']);
 			unset($_SESSION['shouldWelcome']);
 
