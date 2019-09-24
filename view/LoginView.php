@@ -44,20 +44,22 @@ class LoginView {
 
 	public function controllLoggedIn() {
 		$isLoggedIn = false;
-		$this->message = '';
+		//$this->message = '';
 
 		if(isset($_POST[self::$logout]) && isset($_SESSION['userLoggedIn'])) {
 			unset($_SESSION['userLoggedIn']);
+			unset($_SESSION['shouldWelcome']);
 			//session_destroy();
-			$this->message = 'Bye bye!';			
+			$this->message = 'Bye bye!';
+			return $isLoggedIn;		
 		}
-
+		
 		if(isset($_SESSION['userLoggedIn'])) {
 			$isLoggedIn = true;
 			$this->message = '';
 		}
 			
-
+ 
 		if(isset($_POST[self::$submitLogin])) {
 			$user = $_POST[self::$name];
 			$password = $_POST[self::$password];
@@ -71,17 +73,27 @@ class LoginView {
 				$this->message = 'Password is missing';
 				//$response = $this->generateLoginFormHTML($message);
 
+			} else if (isset($_SESSION['shouldWelcome'])) {
+				if ($_SESSION['shouldWelcome']) {
+					$this->message = '';
+					$isLoggedIn = true;
+				}
+
 			} else if ($user == 'Admin' && $password == 'Password') {
 				$isLoggedIn = true;
-				
 				$_SESSION['userLoggedIn'] = $user;
-
+				$_SESSION['shouldWelcome'] = true;
 				$this->message = 'Welcome';
+
+				
+
+				
 			
 			} else if ($user == 'Admin' || $password == 'Password') {
 				$this->message = 'Wrong name or password';
 				//$response = $this->generateLoginFormHTML($message);	
 			} 
+			
 			
 			
 		}

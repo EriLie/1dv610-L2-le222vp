@@ -34,9 +34,6 @@ if(isset($_GET['register'])){
 
 $isLoggedIn = $v->controllLoggedIn();
 
-
-
-
 $lv->render($isLoggedIn, $v, $dtv, $regV, $newUserRegister);
 
 //Connect with database
